@@ -66,7 +66,29 @@ void Assembler::PassI( )
 
 void Assembler::PassII(){
 	m_facc.rewind();
+	cout << "Translation of Program:" << endl;
+	cout << left << setw(10) << "Location" << setw(10) << "Contents" << setw(10) << "Original Statement" << endl;
+	int location = 0;
+	string lineBuff;
+	while (m_facc.GetNextLine(lineBuff)){
+		Instruction::InstructionType st = m_inst.ParseInstruction(lineBuff);
+		if (st == Instruction::ST_Blank) continue;
+		if (st == Instruction::ST_Illegal) Errors::RecordError("Unknown Syntax in: " + m_inst.GetInstruction());
+		if (st == Instruction::ST_End || st == Instruction::ST_Comment){
+			cout << left << setw(10) << "" << setw(10) << "" << setw(10) << m_inst.GetInstruction() << endl;
+			if (st == Instruction::ST_End) break;
+			continue;
+		}
+		if (m_inst.GetLabel() != ""){
+			string label = m_inst.GetLabel();
+			if (label.length() > 10) Errors::RecordError("Label size is longer than 10 characters for \"" + m_inst.GetLabel() + "\"");
+			if (isdigit(label[0])) Errors::RecordError("Label cannot start with a number for \"" + m_inst.GetLabel() + "\"");	
+		}
+		cout << location << setw(10) << "" << setw(10) << "" << setw(10) << m_inst.GetInstruction() << endl;
+		location = m_inst.LocationNextInstruction(location);
+	}
 
+	system("pause");
 
 
 	Errors::DisplayErrors();

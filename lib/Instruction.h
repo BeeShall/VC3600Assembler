@@ -17,8 +17,9 @@ public:
 		ST_MachineLanguage, // A machine language instruction.
 		ST_AssemblerInstr,  // Assembler Language instruction.
 		ST_Comment,          // Comment or blank line
-		ST_End,
-		ST_Blank			// end instruction.
+		ST_End,				// end instruction.
+		ST_Blank,
+		ST_Illegal
     };
     // Parse the Instruction.
 	InstructionType ParseInstruction(string &a_buff);
@@ -36,6 +37,10 @@ public:
 
         return ! m_Label.empty();
     };
+
+	inline string GetInstruction(){
+		return m_instruction;
+	}
 
 
 

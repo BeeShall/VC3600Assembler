@@ -47,6 +47,9 @@ Instruction::InstructionType Instruction::ParseInstruction(string &a_buff){
 	vector<string> buff;
 	bool inlineComment = false;
 	while (is >> lineBuff){
+		if (lineBuff == ""){
+			return ST_Blank;
+		}
 		if (lineBuff[0] == ';' && !inlineComment){
 			return ST_Comment;
 		}
@@ -84,7 +87,7 @@ Instruction::InstructionType Instruction::ParseInstruction(string &a_buff){
 		setElements(opcode, operand);
 		return ST_AssemblerInstr;
 	}
-	return ST_Blank;
+	return ST_Illegal;
 }
 
 
