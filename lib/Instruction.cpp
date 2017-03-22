@@ -95,7 +95,6 @@ Instruction::InstructionType Instruction::ParseInstruction(string &a_buff){
 		setElements(opcode, operand);
 		return ST_AssemblerInstr;
 	}
-	cout << a_buff << endl;
 	return ST_Illegal;
 }
 

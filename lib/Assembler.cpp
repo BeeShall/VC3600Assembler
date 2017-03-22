@@ -73,8 +73,11 @@ void Assembler::PassII(){
 	while (m_facc.GetNextLine(lineBuff)){
 		Instruction::InstructionType st = m_inst.ParseInstruction(lineBuff);
 		if (st == Instruction::ST_Blank) continue;
-		//if (st == Instruction::ST_Illegal) Errors::RecordError("Unknown Syntax in: " + m_inst.GetInstruction()); continue;
-		if (st == Instruction::ST_End || st == Instruction::ST_Comment){
+		if (st == Instruction::ST_Illegal){
+			Errors::RecordError("Unknown Syntax in: " + m_inst.GetInstruction());
+			continue;
+		}
+			if (st == Instruction::ST_End || st == Instruction::ST_Comment){
 			cout << left << setw(10) << "" << setw(10) << "" << setw(10) << m_inst.GetInstruction() << endl;
 			if (st == Instruction::ST_End) break;
 			continue;
