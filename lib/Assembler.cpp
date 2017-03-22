@@ -15,10 +15,12 @@ Assembler::Assembler( int argc, char *argv[] )
 // Destructor currently does nothing.  You might need to add something as you develope this project.
 Assembler::~Assembler( )
 {
+	
 }
 // Pass I establishes the location of the labels.  You will write better function comments according to the coding standards.
 void Assembler::PassI( ) 
 {
+	Errors::InitErrorReporting();
     int loc = 0;        // Tracks the location of the instructions to be generated.
 
     // Successively process each line of source code.
@@ -48,8 +50,14 @@ void Assembler::PassI( )
         // If the instruction has a label, record it and its location in the
         // symbol table.
         if( m_inst.isLabel( ) ) {
-
-            m_symtab.AddSymbol( m_inst.GetLabel( ), loc );
+			int tempLoc;
+			//if any label is defined twice, report the error and ignore the new one
+			if (!m_symtab.LookupSymbol(m_inst.GetLabel(), tempLoc)){
+				m_symtab.AddSymbol(m_inst.GetLabel(), loc);
+			}
+			else{
+				Errors::RecordError("Label already exists! :: " + m_inst.GetLabel());
+			}
         }
         // Compute the location of the next instruction.
         loc = m_inst.LocationNextInstruction( loc );
@@ -58,6 +66,8 @@ void Assembler::PassI( )
 
 void Assembler::PassII(){
 
+
+	Errors::DisplayErrors();
 }
 
 void Assembler::DisplaySymbolTable(){

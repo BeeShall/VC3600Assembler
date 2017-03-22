@@ -1,6 +1,5 @@
 #include "stdafx.h"
 #include "Instruction.h"
-#include "Errors.h"
 
 Instruction::Instruction(){
 	sym_opcodes.insert({{ "add", 1 }, { "sub", 2 }, { "mult", 3 }, { "div", 4 }, { "load", 5 }, { "store", 6 }, { "read", 7 }, { "write", 8 }, { "b", 9 }, { "bm", 10 }, { "bz", 11 }, { "bp", 12 },{"halt", 13} });
@@ -8,22 +7,25 @@ Instruction::Instruction(){
 }
 
 int Instruction::LocationNextInstruction(int a_loc){
-	if (m_OpCode == "org") return a_loc + parseToInt(m_Operand);
-	if (m_OpCode == "ds") return a_loc + parseToInt(m_Operand);
-
+	if (m_OpCode == "org" || m_OpCode == "ds") return a_loc + parseToInt(m_Operand);
 	return ++a_loc;
 
 
 }
 
 void Instruction::setElements(string opcode, string operand){
-	cout << opcode << endl;
 	m_OpCode = opcode;
 	m_Operand = operand;
 }
 
 int Instruction::parseToInt(string number){
-	return stoi(number);
+	try{
+		return stoi(number);
+	}
+	catch (exception e){
+		cout << e.what() << endl;
+		return -1;
+	}
 	//needs error checking
 }
 

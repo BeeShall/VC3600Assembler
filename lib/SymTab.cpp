@@ -42,3 +42,14 @@ void SymbolTable::DisplaySymbolTable(){
 	}
 	system("pause");
 }
+
+bool SymbolTable::LookupSymbol(string &a_symbol, int &a_loc){
+	auto it = m_symbolTable.find(a_symbol);
+	if (it != m_symbolTable.end()){
+		a_loc = it->second;
+		return true;
+	}
+
+	return false;
+
+}
