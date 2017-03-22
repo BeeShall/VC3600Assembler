@@ -65,6 +65,8 @@ void Assembler::PassI( )
 }
 
 void Assembler::PassII(){
+	m_facc.rewind();
+
 
 
 	Errors::DisplayErrors();
