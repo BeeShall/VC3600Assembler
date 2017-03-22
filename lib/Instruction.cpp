@@ -16,6 +16,15 @@ int Instruction::LocationNextInstruction(int a_loc){
 void Instruction::setElements(string opcode, string operand){
 	m_OpCode = opcode;
 	m_Operand = operand;
+
+	int temp = parseToInt(operand);
+	if (temp == -1){
+		m_IsNumericOperand = false;
+	}
+	else{
+		m_IsNumericOperand = true;
+		m_OperandValue = temp;
+	}
 }
 
 int Instruction::parseToInt(string number){
@@ -23,7 +32,6 @@ int Instruction::parseToInt(string number){
 		return stoi(number);
 	}
 	catch (exception e){
-		cout << e.what() << endl;
 		return -1;
 	}
 	//needs error checking
@@ -87,6 +95,7 @@ Instruction::InstructionType Instruction::ParseInstruction(string &a_buff){
 		setElements(opcode, operand);
 		return ST_AssemblerInstr;
 	}
+	cout << a_buff << endl;
 	return ST_Illegal;
 }
 

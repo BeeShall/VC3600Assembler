@@ -73,7 +73,7 @@ void Assembler::PassII(){
 	while (m_facc.GetNextLine(lineBuff)){
 		Instruction::InstructionType st = m_inst.ParseInstruction(lineBuff);
 		if (st == Instruction::ST_Blank) continue;
-		if (st == Instruction::ST_Illegal) Errors::RecordError("Unknown Syntax in: " + m_inst.GetInstruction());
+		//if (st == Instruction::ST_Illegal) Errors::RecordError("Unknown Syntax in: " + m_inst.GetInstruction()); continue;
 		if (st == Instruction::ST_End || st == Instruction::ST_Comment){
 			cout << left << setw(10) << "" << setw(10) << "" << setw(10) << m_inst.GetInstruction() << endl;
 			if (st == Instruction::ST_End) break;
@@ -81,10 +81,25 @@ void Assembler::PassII(){
 		}
 		if (m_inst.GetLabel() != ""){
 			string label = m_inst.GetLabel();
-			if (label.length() > 10) Errors::RecordError("Label size is longer than 10 characters for \"" + m_inst.GetLabel() + "\"");
-			if (isdigit(label[0])) Errors::RecordError("Label cannot start with a number for \"" + m_inst.GetLabel() + "\"");	
+			if (label.length() > 10){
+				Errors::RecordError("Label size is longer than 10 characters for \"" + m_inst.GetLabel() + "\""); continue;
+			}
+			if (isdigit(label[0])){
+				Errors::RecordError("Label cannot start with a number for \"" + m_inst.GetLabel() + "\"");	continue;
+			}
 		}
-		cout << location << setw(10) << "" << setw(10) << "" << setw(10) << m_inst.GetInstruction() << endl;
+
+		if (m_inst.getOpCode() == "org" || m_inst.getOpCode() == "ds"){
+			cout << left << setw(10) << location << setw(10) << "" << setw(10) << m_inst.GetInstruction() << endl;
+		}
+		else{
+			int contents = m_inst.getOpCodeValue() * 10000;
+			int operandValue;
+			if (m_inst.isNumericOperand()) operandValue = m_inst.getNumericOperand();
+			else m_symtab.LookupSymbol(m_inst.getStringOperand(), operandValue);
+			contents += operandValue;
+			cout << left << setw(10) << location <<right << setfill('0')<<setw(6) << contents << setw(4) << setfill(' ')<<""<<left<<setw(10)<< m_inst.GetInstruction() << endl;
+		}
 		location = m_inst.LocationNextInstruction(location);
 	}
 

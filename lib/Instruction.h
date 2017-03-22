@@ -42,6 +42,25 @@ public:
 		return m_instruction;
 	}
 
+	inline int getOpCodeValue(){
+		return sym_opcodes[m_OpCode];
+	}
+
+	inline string getOpCode(){
+		return m_OpCode;
+	}
+
+	inline bool isNumericOperand(){
+		return m_IsNumericOperand;
+	}
+
+	inline int getNumericOperand(){
+		return m_OperandValue;
+	}
+
+	inline string getStringOperand(){
+		return m_Operand;
+	}
 
 
 private:
