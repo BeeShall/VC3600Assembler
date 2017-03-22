@@ -19,10 +19,7 @@ public:
     void AddSymbol( string &a_symbol, int a_loc );
 
     // Display the symbol table.
-	void DisplaySymbolTable()
-	{
-
-	}
+	void DisplaySymbolTable();
 
     // Lookup a symbol in the symbol table.
     bool LookupSymbol( string &a_symbol, int &a_loc );

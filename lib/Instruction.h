@@ -38,13 +38,12 @@ public:
     };
 
 
+
 private:
 
 	void setElements( string opcode, string operand);
-	string checkForComments(string buff);
+	bool checkForComments(string &buff);
 
-	bool checkMachineCodes(string buff, istringstream &is);
-	bool checkSymbolicCodes(string buff, istringstream &is);
 
     // The elemements of a instruction
     string m_Label;            // The label.
