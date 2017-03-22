@@ -56,3 +56,15 @@ void Assembler::PassI( )
     }
 }
 
+void Assembler::PassII(){
+
+}
+
+void Assembler::DisplaySymbolTable(){
+	m_symtab.DisplaySymbolTable();
+}
+
+void Assembler::RunEmulator(){
+
+
+}

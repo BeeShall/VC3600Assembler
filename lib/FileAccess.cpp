@@ -15,6 +15,7 @@ FileAccess::FileAccess( int argc, char *argv[] )
     // Open the file.  One might question if this is the best place to open the file.
     // One might also question whether we need a file access class.
     m_sfile.open( argv[1], ios::in );
+	cout << "FileAccess.cpp: File opened" << endl;
 
     // If the open failed, report the error and terminate.
     if( ! m_sfile ) {

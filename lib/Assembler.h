@@ -20,19 +20,13 @@ public:
     void PassI( );
 
     // Pass II - generate a translation
-	void PassII(){
-
-	}
+	void PassII();
 
     // Display the symbols in the symbol table.
-    void DisplaySymbolTable() { m_symtab.DisplaySymbolTable(); }
+	void DisplaySymbolTable();
     
     // Run emulator on the translation.
-	void RunEmulator(){
-
-
-	}
-
+	void RunEmulator();
 private:
 
     FileAccess m_facc;	    // File Access object

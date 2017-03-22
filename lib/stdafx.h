@@ -21,5 +21,10 @@
 #include <string>
 #include <windows.h>
 #include <map>
+#include <vector>
+#include <sstream>
+#include <unordered_set>
+#include <unordered_map>
+#include <algorithm>
 
 using namespace std;

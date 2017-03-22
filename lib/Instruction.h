@@ -8,26 +8,23 @@ class Instruction {
 
 public:
 
-    Instruction( ) { };
+    Instruction( );
     ~Instruction( ) { };
 
     // Codes to indicate the type of instruction we are processing.  Why is this inside the
     // class?
     enum InstructionType {
-        ST_MachineLanguage, // A machine language instruction.
-        ST_AssemblerInstr,  // Assembler Language instruction.
-        ST_Comment,          // Comment or blank line
-        ST_End                    // end instruction.
+		ST_MachineLanguage, // A machine language instruction.
+		ST_AssemblerInstr,  // Assembler Language instruction.
+		ST_Comment,          // Comment or blank line
+		ST_End,
+		ST_Blank			// end instruction.
     };
     // Parse the Instruction.
-	InstructionType ParseInstruction(string &a_buff){
-		return InstructionType();
-	}
+	InstructionType ParseInstruction(string &a_buff);
 
     // Compute the location of the next instruction.
-	int LocationNextInstruction(int a_loc){
-		return 0;
-	}
+	int LocationNextInstruction(int a_loc);
 
     // To access the label
     inline string &GetLabel( ) {
@@ -43,6 +40,11 @@ public:
 
 private:
 
+	void setElements( string opcode, string operand);
+	string checkForComments(string buff);
+
+	bool checkMachineCodes(string buff, istringstream &is);
+	bool checkSymbolicCodes(string buff, istringstream &is);
 
     // The elemements of a instruction
     string m_Label;            // The label.
@@ -58,6 +60,9 @@ private:
 
     bool m_IsNumericOperand;// == true if the operand is numeric.
     int m_OperandValue;   // The value of the operand if it is numeric.
+
+	unordered_map<string, int> sym_opcodes;
+	unordered_set<string> mach_opcodes;
 };
 
 
