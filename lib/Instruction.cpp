@@ -8,14 +8,24 @@ Instruction::Instruction(){
 }
 
 int Instruction::LocationNextInstruction(int a_loc){
-	return 0;
+	if (m_OpCode == "org") return a_loc + parseToInt(m_Operand);
+	if (m_OpCode == "ds") return a_loc + parseToInt(m_Operand);
+
+	return ++a_loc;
+
+
 }
 
 void Instruction::setElements(string opcode, string operand){
+	cout << opcode << endl;
 	m_OpCode = opcode;
 	m_Operand = operand;
 }
 
+int Instruction::parseToInt(string number){
+	return stoi(number);
+	//needs error checking
+}
 
 
 bool Instruction::checkForComments(string &buff){
@@ -52,15 +62,15 @@ Instruction::InstructionType Instruction::ParseInstruction(string &a_buff){
 
 	string opcode;
 	string operand;
-	cout << buff.size() << endl;
 	if(buff.size() > 2){
 		m_Label = buff[0];
 		opcode = buff[1];
 		operand = buff[2];
 	}
-	else if (buff.size() == 2){
+	else if (buff.size() <= 2){
 		opcode = buff[0];
-		operand = buff[1];
+		if (buff.size()==2) operand = buff[1];
+		else operand = "";
 	}
 
 	if (mach_opcodes.find(opcode) != mach_opcodes.end()){

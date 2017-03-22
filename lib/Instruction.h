@@ -43,6 +43,7 @@ private:
 
 	void setElements( string opcode, string operand);
 	bool checkForComments(string &buff);
+	int parseToInt(string number);
 
 
     // The elemements of a instruction

@@ -7,7 +7,6 @@ hay    store   y ; This is the another comment.
 	bp	hi
 	halt
 ;test 
-
 x      dc      55
 y      ds      99
 b      dc      29
