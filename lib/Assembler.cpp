@@ -102,8 +102,11 @@ void Assembler::PassII(){
 			else m_symtab.LookupSymbol(m_inst.getStringOperand(), operandValue);
 			contents += operandValue;
 			cout << left << setw(10) << location <<right << setfill('0')<<setw(6) << contents << setw(4) << setfill(' ')<<""<<left<<setw(10)<< m_inst.GetInstruction() << endl;
+			
+			m_emul.insertMemory(location, contents);
 		}
 		location = m_inst.LocationNextInstruction(location);
+		
 	}
 
 	system("pause");
@@ -119,4 +122,14 @@ void Assembler::DisplaySymbolTable(){
 void Assembler::RunEmulator(){
 
 
+	if (Errors::checkErrors()) {
+		cout << "Cannot run the emulator due to existing errors" << endl;
+	}
+	else {
+		cout << endl;
+		cout << "Results from the emulating program" << endl;
+		m_emul.runProgram();
+	}
+
+	cout << "End of emulation" << endl;
 }

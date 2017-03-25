@@ -7,7 +7,7 @@ Instruction::Instruction(){
 }
 
 int Instruction::LocationNextInstruction(int a_loc){
-	if (m_OpCode == "org" || m_OpCode == "ds") return a_loc + parseToInt(m_Operand);
+	if (m_OpCode == "org" || m_OpCode == "ds") return a_loc +getNumericOperand();
 	return ++a_loc;
 
 

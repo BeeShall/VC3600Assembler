@@ -19,6 +19,10 @@ public:
     // Displays the collected error message.
     static void DisplayErrors( );
 
+	inline static bool checkErrors(){
+		return !m_ErrorMsgs.empty();
+	}
+
 private:
 
     static vector<string> m_ErrorMsgs;

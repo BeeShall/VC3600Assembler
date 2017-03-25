@@ -22,7 +22,7 @@ public:
 private:
 
     int m_memory[MEMSZ];       // The memory of the VC3600.
-    int acceumulator;			// The accumulator for the VC3600
+    int accumulator;			// The accumulator for the VC3600
 };
 
 #endif
